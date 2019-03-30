@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <% include ../helpers/head %>
 </head>
@@ -17,18 +18,18 @@
     Sign in
   </button>
 
-
   <!--form-->
   <form action = "/actionpage.php">
     Post Title:<br>
     <input id="title" type="text" name="title"><br>
     Post Comment:<br>
-    <input id="body" type="text" name="body">
-    <button class="btn btn-default" type="button" onclick="myFunction()">
-      Submit
+    <input id="body" type="text" name="body"><br>
+    <button class="btn btn-default" type="button" onclick="handleMessageFormSubmit()">
+      Post
     </button>
   </form>
 
+  <div id="stream"></div>
   
 
   <div id="doge-image"/>

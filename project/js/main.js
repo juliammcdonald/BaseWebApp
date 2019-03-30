@@ -25,3 +25,38 @@ function toggleSignIn() {
 	//This disables the button until login or logout is successful. You'll want to replace 'login-button' with the id of your login button.
 	$('#login-button').attr("disabled", true);
 }
+
+//gets called to submit form
+function handleMessageFormSubmit() {
+	var title = $("#title").val();
+	var body = $("#body").val();
+	
+	addMessage(body, title);
+}
+
+//adds the title and body to the database
+function addMessage(body, title) {
+	var postData = {
+        title: title,
+        body: body
+    };
+    var newPostKey = firebase.database().ref().child('stream').push().key;
+  	firebase.database().ref('/stream/' + newPostKey).set(postData);
+}
+
+//gets data from the database and displays it
+window.onload = function() {
+	const databaseStreamReference = firebase.database().ref('/stream/');
+
+	databaseStreamReference.on('value', function(snapshot) {
+	  var messages = snapshot.val();
+	  $('#stream').empty();
+
+	  if (messages) {
+	    Object.keys(messages).forEach(function (key) {
+	      const message = messages[key];
+	      $('#stream').append(`<div>${message.title}</div>`);
+	    });
+	  }
+	});
+	};
